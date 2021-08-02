@@ -10,11 +10,18 @@ job "test" {
             max_parallel = 1
         }
 
+        network {
+            port "http" {
+                to = 8081
+            }
+        }
+
         task "server" {
             driver = "docker"
 
             config {
-                image = "test"
+                ports = ["http"]
+                image = "ghcr.io/spiralw/nomad-test:master"
             }
         }
     }
